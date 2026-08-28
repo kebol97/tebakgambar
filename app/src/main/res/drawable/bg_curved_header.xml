@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="360dp"
+    android:height="260dp"
+    android:viewportWidth="360"
+    android:viewportHeight="260">
+
+    <!-- Isi Area Gelap Bawah -->
+    <path
+        android:fillColor="#0B131F"
+        android:pathData="M0,210 Q180,260 360,210 L360,260 L0,260 Z" />
+
+    <!-- Garis List Emas Lengkung -->
+    <path
+        android:pathData="M0,210 Q180,260 360,210"
+        android:strokeColor="#FFD700"
+        android:strokeWidth="2.5" />
+</vector>

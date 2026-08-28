@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Football Quiz</string>
+
+    <!-- Main Menu -->
+    <string name="btn_start_game">START QUIZ</string>
+    <string name="btn_category">QUIZ CATEGORIES</string>
+    <string name="btn_leaderboard">LEADERBOARD</string>
+    <string name="btn_profile">MY PROFILE</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_quiz">Quiz</string>
+    <string name="nav_ranking">Ranking</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Gameplay -->
+    <string name="label_question">Question</string>
+    <string name="label_score">Score</string>
+    <string name="btn_help_5050">🪙 50:50</string>
+    <string name="btn_help_audience">👥 ASK AUDIENCE</string>
+    <string name="msg_correct">Correct! +10</string>
+    <string name="msg_wrong">Wrong!</string>
+    <string name="msg_quiz_finished">Quiz Finished! Final Score: %1$d</string>
+    <string name="msg_lifeline_empty">50:50 help is exhausted!</string>
+    <string name="msg_lifeline_applied">2 wrong answers removed!</string>
+    <string name="msg_feature_coming_soon">Feature coming soon!</string>
+    <string name="msg_ad_not_ready">Ad not ready, try again.</string>
+    <string name="msg_data_empty">Question data is empty</string>
+    <string name="msg_load_failed">Failed to load: %1$s</string>
+
+    <!-- Categories -->
+    <string name="title_choose_mode">CHOOSE QUIZ MODE</string>
+    <string name="subtitle_choose_mode">Choose your challenge today!</string>
+    <string name="mode_guess_player">Guess the Player</string>
+    <string name="desc_guess_player">Guess player name from the image</string>
+    <string name="mode_survey">The Most Known (Survey)</string>
+    <string name="desc_survey">Name the answers with the most survey results</string>
+
+    <!-- Survey -->
+    <string name="title_survey">THE MOST KNOWN</string>
+    <string name="hint_survey_input">Type your answer here...</string>
+    <string name="btn_submit_survey">GUESS ANSWER</string>
+    <string name="loading_question">Loading Question...</string>
+    <string name="msg_correct_survey">Exactly! +%1$d</string>
+    <string name="msg_already_revealed">Answer already revealed!</string>
+    <string name="msg_not_in_survey">Answer not in survey!</string>
+    <string name="msg_survey_complete">Great! All answers revealed!</string>
+
+    <!-- Firebase / Google Sign-In -->
+    <string name="default_web_client_id">582916037223-t3geugnn6sg0v124koq5cs08cakh2d6a.apps.googleusercontent.com</string>
+</resources>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A111C">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_score"
+            android:textColor="#FFD700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_survey"
+            android:textColor="#E8D5A3"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/inputContainer"
+        android:layout_below="@id/topBar"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tvQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/loading_question"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!-- Answer Board -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <!-- Slot 1 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardAnswer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#111A28"
+                    app:cardCornerRadius="8dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp">
+                        <TextView android:id="@+id/tvNum1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1" android:textColor="#7A6538" android:textStyle="bold" android:layout_centerVertical="true"/>
+                        <TextView android:id="@+id/tvAnswer1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="#E8D5A3" android:layout_centerInParent="true" android:visibility="visible"/>
+                        <TextView android:id="@+id/tvPoints1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#FFD700" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:visibility="gone"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Slot 2 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardAnswer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#111A28"
+                    app:cardCornerRadius="8dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2" android:textColor="#7A6538" android:textStyle="bold" android:layout_centerVertical="true"/>
+                        <TextView android:id="@+id/tvAnswer2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="#E8D5A3" android:layout_centerInParent="true"/>
+                        <TextView android:id="@+id/tvPoints2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#FFD700" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:visibility="gone"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Slot 3 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardAnswer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#111A28"
+                    app:cardCornerRadius="8dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3" android:textColor="#7A6538" android:textStyle="bold" android:layout_centerVertical="true"/>
+                        <TextView android:id="@+id/tvAnswer3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="#E8D5A3" android:layout_centerInParent="true"/>
+                        <TextView android:id="@+id/tvPoints3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#FFD700" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:visibility="gone"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Slot 4 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardAnswer4"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#111A28"
+                    app:cardCornerRadius="8dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="4" android:textColor="#7A6538" android:textStyle="bold" android:layout_centerVertical="true"/>
+                        <TextView android:id="@+id/tvAnswer4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="#E8D5A3" android:layout_centerInParent="true"/>
+                        <TextView android:id="@+id/tvPoints4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#FFD700" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:visibility="gone"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Slot 5 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardAnswer5"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="#111A28"
+                    app:cardCornerRadius="8dp"
+                    app:strokeColor="#334155"
+                    app:strokeWidth="1dp">
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent" android:paddingHorizontal="16dp">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="5" android:textColor="#7A6538" android:textStyle="bold" android:layout_centerVertical="true"/>
+                        <TextView android:id="@+id/tvAnswer5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="#E8D5A3" android:layout_centerInParent="true"/>
+                        <TextView android:id="@+id/tvPoints5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textColor="#FFD700" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:visibility="gone"/>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Input Area -->
+    <LinearLayout
+        android:id="@+id/inputContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#111A28"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/etAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_curved_header"
+            android:backgroundTint="#1E293B"
+            android:hint="@string/hint_survey_input"
+            android:inputType="text"
+            android:paddingHorizontal="16dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#64748B" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_submit_survey"
+            android:textColor="#E8D5A3"
+            app:cornerRadius="12dp"
+            app:strokeColor="#7A6538"
+            app:strokeWidth="1.5dp" />
+
+        <FrameLayout
+            android:id="@+id/adViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp" />
+    </LinearLayout>
+
+</RelativeLayout>

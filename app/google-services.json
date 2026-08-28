@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "582916037223",
+    "project_id": "kuis-tebak-bola",
+    "storage_bucket": "kuis-tebak-bola.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582916037223:android:40721624f804edfe3792c2",
+        "android_client_info": {
+          "package_name": "com.cococue.kuistebakbola"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "582916037223-mk8hvpee7q806pi68u6p83gepgo0runc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cococue.kuistebakbola",
+            "certificate_hash": "6156ea43519d402218d4864c5b7c7ed96c73da06"
+          }
+        },
+        {
+          "client_id": "582916037223-t3geugnn6sg0v124koq5cs08cakh2d6a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTZsNdudf26VFuM6F0tR_x_rWou_LlE68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "582916037223-t3geugnn6sg0v124koq5cs08cakh2d6a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
