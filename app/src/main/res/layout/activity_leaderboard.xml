@@ -51,6 +51,18 @@
         android:layout_below="@id/headerLayout"
         android:padding="16dp" />
 
+    <!-- Tampilan Data Kosong -->
+    <TextView
+        android:id="@+id/tvEmptyState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="Belum ada skor tersedia.\nJadilah yang pertama mencetak skor!"
+        android:textColor="#94A3B8"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
     <!-- Bar Peringkat Saya -->
     <LinearLayout
         android:id="@+id/myRankContainer"

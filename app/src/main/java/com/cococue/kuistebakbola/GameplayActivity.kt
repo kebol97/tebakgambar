@@ -34,6 +34,7 @@ class GameplayActivity : AppCompatActivity() {
     private var countDownTimer: CountDownTimer? = null
     private var baseTimeInMillis = 15000L // 15 seconds start
     
+    private var currentRemainingTime: Long = 0
     private var mInterstitialAd: InterstitialAd? = null
     private var mRewardedAd: RewardedAd? = null
 
@@ -68,6 +69,10 @@ class GameplayActivity : AppCompatActivity() {
 
         setupGame()
         loadAds()
+        
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun loadAds() {
@@ -146,9 +151,11 @@ class GameplayActivity : AppCompatActivity() {
         
         // Time gets faster: 15s, 14s, 13s ... minimum 5s
         val timeForThisQuestion = maxOf(5000L, baseTimeInMillis - (currentQuestionIndex * 1000L))
+        currentRemainingTime = timeForThisQuestion
         
         countDownTimer = object : CountDownTimer(timeForThisQuestion, 1000) {
             override fun onTick(millisUntilFinished: Long) {
+                currentRemainingTime = millisUntilFinished
                 binding.tvTimer.text = "${millisUntilFinished / 1000}s"
                 if (millisUntilFinished < 5000) {
                     binding.tvTimer.setTextColor(android.graphics.Color.RED)
@@ -173,6 +180,11 @@ class GameplayActivity : AppCompatActivity() {
             }
 
             if (mRewardedAd != null) {
+                // Hentikan waktu saat iklan bantuan muncul
+                countDownTimer?.cancel()
+                binding.tvTimer.text = "PAUSED"
+                binding.tvTimer.setTextColor(android.graphics.Color.WHITE)
+
                 mRewardedAd?.show(this) {
                     lifelineCount--
                     updateLifelineButtonText()
@@ -217,25 +229,52 @@ class GameplayActivity : AppCompatActivity() {
         Toast.makeText(this, getString(R.string.msg_lifeline_applied), Toast.LENGTH_SHORT).show()
     }
 
+    private fun setGameContentVisibility(isVisible: Boolean) {
+        val visibility = if (isVisible) android.view.View.VISIBLE else android.view.View.INVISIBLE
+        binding.tvQuestionText.visibility = visibility
+        binding.btnOptionA.visibility = visibility
+        binding.btnOptionB.visibility = visibility
+        binding.btnOptionC.visibility = visibility
+        binding.btnOptionD.visibility = visibility
+        binding.btnHelp5050.visibility = visibility
+        binding.btnHelpAudience.visibility = visibility
+        binding.tvTimer.visibility = visibility
+    }
+
     private fun displayQuestion() {
         val currentQuestion = questionList[currentQuestionIndex]
-        startTimer()
         
-        // Pastikan semua tombol jawaban terlihat kembali untuk soal baru
-        binding.btnOptionA.visibility = android.view.View.VISIBLE
-        binding.btnOptionB.visibility = android.view.View.VISIBLE
-        binding.btnOptionC.visibility = android.view.View.VISIBLE
-        binding.btnOptionD.visibility = android.view.View.VISIBLE
+        // Sembunyikan semua konten kuis sampai gambar siap
+        setGameContentVisibility(false)
 
         binding.tvQuestionProgress.text = "${currentQuestionIndex + 1}/${questionList.size}"
         binding.tvScore.text = "${getString(R.string.label_score)}: $score"
         binding.tvQuestionText.text = currentQuestion.questionText
         
+        // Sembunyikan gambar sementara agar bisa di-animate
+        binding.imgQuestion.alpha = 0f
+
         // Load gambar menggunakan Coil
         binding.imgQuestion.load(currentQuestion.imageUrl) {
             crossfade(true)
             placeholder(android.R.drawable.ic_menu_gallery)
             error(android.R.drawable.ic_menu_report_image)
+            // Tambahkan User-Agent agar Wikimedia tidak memblokir permintaan
+            addHeader("User-Agent", "KuisTebakBola/1.0 (Android; contact: support@cococue.com)")
+            listener(
+                onSuccess = { _, _ ->
+                    // Gambar Berhasil Muncul -> Tampilkan Konten & Mulai Timer
+                    setGameContentVisibility(true)
+                    binding.imgQuestion.animate().alpha(1f).setDuration(400).start()
+                    startTimer()
+                },
+                onError = { _, result ->
+                    android.util.Log.e("GameplayActivity", "Coil Error: ${result.throwable.message}")
+                    // Jika gambar gagal dimuat, cari soal yang lain (skip)
+                    Toast.makeText(this@GameplayActivity, "Gagal memuat gambar, mencari soal lain...", Toast.LENGTH_SHORT).show()
+                    nextQuestion()
+                }
+            )
         }
 
         // Set teks pada tombol (Asumsi minimal 4 opsi sesuai JSON)
@@ -258,9 +297,13 @@ class GameplayActivity : AppCompatActivity() {
         countDownTimer?.cancel()
         val currentQuestion = questionList[currentQuestionIndex]
         if (selectedIndex == currentQuestion.correctAnswerIndex) {
-            score += 10
+            val bonus = (currentRemainingTime / 1000).toInt()
+            val sessionPoints = 10 + bonus
+            score += sessionPoints
+            
+            animateScorePop()
             SoundManager.playSound(this, "correct")
-            Toast.makeText(this, getString(R.string.msg_correct), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Benar! +$sessionPoints (Bonus: $bonus)", Toast.LENGTH_SHORT).show()
         } else {
             SoundManager.playSound(this, "wrong")
             SoundManager.vibrate(this)
@@ -270,16 +313,50 @@ class GameplayActivity : AppCompatActivity() {
         nextQuestion()
     }
 
+    private fun animateScorePop() {
+        binding.tvScore.animate()
+            .scaleX(1.2f)
+            .scaleY(1.2f)
+            .setDuration(150)
+            .withEndAction {
+                binding.tvScore.animate()
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .setDuration(150)
+                    .start()
+            }
+            .start()
+    }
+
     private fun nextQuestion() {
         if (currentQuestionIndex < (questionList.size - 1)) {
             currentQuestionIndex++
             displayQuestion()
         } else {
-            SoundManager.playSound(this, "victory")
-            Toast.makeText(this, getString(R.string.msg_quiz_finished, score), Toast.LENGTH_LONG).show()
             FirebaseManager.uploadScore(score, "GuessPlayer")
+            showVictoryDialog(score)
+        }
+    }
+
+    private fun showVictoryDialog(finalScore: Int) {
+        val dialog = android.app.Dialog(this)
+        dialog.setContentView(R.layout.dialog_victory)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.setCancelable(false)
+
+        val tvFinalScore = dialog.findViewById<android.widget.TextView>(R.id.tvFinalScore)
+        val btnFinish = dialog.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnFinish)
+
+        tvFinalScore.text = "Skor Akhir: $finalScore"
+        
+        SoundManager.playSound(this, "victory")
+
+        btnFinish.setOnClickListener {
+            dialog.dismiss()
             showInterstitialThenFinish()
         }
+
+        dialog.show()
     }
 
     override fun finish() {

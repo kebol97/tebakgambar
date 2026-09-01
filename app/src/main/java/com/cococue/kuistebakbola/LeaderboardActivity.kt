@@ -56,8 +56,10 @@ class LeaderboardActivity : AppCompatActivity() {
     }
 
     private fun loadLeaderboard(category: String) {
+        val tvEmptyState = findViewById<TextView>(R.id.tvEmptyState)
         FirebaseManager.getTopScores(category) { scores ->
             adapter.setData(scores)
+            tvEmptyState.visibility = if (scores.isEmpty()) View.VISIBLE else View.GONE
         }
         
         FirebaseManager.getUserRank(category) { rank, score ->
@@ -97,10 +99,33 @@ class LeaderboardActivity : AppCompatActivity() {
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = list[position]
-            holder.text1.text = "${position + 1}. ${item.userName}"
+            val tierLabel = "[${item.tier}]"
+            holder.text1.text = "${position + 1}. ${item.userName} $tierLabel"
             holder.text2.text = "${item.score} Poin"
             
             holder.text1.setTextColor(android.graphics.Color.WHITE)
+            
+            // Berikan warna khusus untuk label Tier
+            val tierColor = when (item.tier) {
+                "Legenda" -> android.graphics.Color.parseColor("#FFD700") // Emas
+                "Profesional" -> android.graphics.Color.parseColor("#3B82F6") // Biru
+                "Semi-Pro" -> android.graphics.Color.parseColor("#22C55E") // Hijau
+                else -> android.graphics.Color.parseColor("#94A3B8") // Abu-abu
+            }
+            
+            // Gunakan Spannable untuk mewarnai hanya bagian Tier
+            val fullText = holder.text1.text.toString()
+            val spannable = android.text.SpannableString(fullText)
+            val start = fullText.indexOf(tierLabel)
+            if (start != -1) {
+                spannable.setSpan(
+                    android.text.style.ForegroundColorSpan(tierColor),
+                    start,
+                    start + tierLabel.length,
+                    android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+            holder.text1.text = spannable
             holder.text2.setTextColor(android.graphics.Color.YELLOW)
         }
 

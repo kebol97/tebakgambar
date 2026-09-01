@@ -58,6 +58,29 @@
             android:textColor="#94A3B8"
             android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/tvUserTier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Gelar: Amatir"
+            android:textColor="#FFD700"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLoginWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="#33FFD700"
+            android:padding="12dp"
+            android:text="@string/msg_login_warning"
+            android:textColor="#FFD700"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:visibility="gone" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnGoogleSignIn"
             android:layout_width="match_parent"

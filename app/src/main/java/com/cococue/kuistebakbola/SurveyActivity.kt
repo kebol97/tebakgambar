@@ -75,6 +75,10 @@ class SurveyActivity : AppCompatActivity() {
         loadSurveyData()
         setupListeners()
         loadBannerAd()
+
+        findViewById<View>(R.id.btnBack).setOnClickListener {
+            finish()
+        }
     }
 
     private fun loadSurveyData() {

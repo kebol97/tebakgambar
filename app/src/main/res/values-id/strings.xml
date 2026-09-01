@@ -7,7 +7,7 @@
     <string name="btn_leaderboard">PAPAN PERINGKAT</string>
     <string name="btn_profile">PROFIL SAYA</string>
     <string name="nav_home">Beranda</string>
-    <string name="nav_quiz">Kategori</string>
+    <string name="nav_quiz">Main</string>
     <string name="nav_ranking">Peringkat</string>
     <string name="nav_profile">Profil</string>
 
@@ -43,4 +43,7 @@
     <string name="msg_already_revealed">Jawaban sudah terbuka!</string>
     <string name="msg_not_in_survey">Jawaban tidak ada dalam survei!</string>
     <string name="msg_survey_complete">Luar biasa! Semua jawaban terungkap!</string>
+
+    <!-- Profile -->
+    <string name="msg_login_warning">Login Google untuk menyimpan skor secara permanen agar tidak hilang saat aplikasi dihapus.</string>
 </resources>

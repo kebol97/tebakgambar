@@ -29,6 +29,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var tvUserName: TextView
     private lateinit var tvUserEmail: TextView
+    private lateinit var tvUserTier: TextView
     private lateinit var imgProfileLarge: ImageView
     private lateinit var btnGoogleSignIn: MaterialButton
     private lateinit var btnSignOut: MaterialButton
@@ -52,6 +53,7 @@ class ProfileActivity : AppCompatActivity() {
 
         tvUserName = findViewById(R.id.tvUserName)
         tvUserEmail = findViewById(R.id.tvUserEmail)
+        tvUserTier = findViewById(R.id.tvUserTier)
         imgProfileLarge = findViewById(R.id.imgProfileLarge)
         btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn)
         btnSignOut = findViewById(R.id.btnSignOut)
@@ -104,7 +106,9 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun updateUI() {
         val user = auth.currentUser
-        if (user != null) {
+        val tvLoginWarning = findViewById<TextView>(R.id.tvLoginWarning)
+
+        if (user != null && !user.isAnonymous) {
             tvUserName.text = user.displayName ?: "User"
             tvUserEmail.text = user.email
             imgProfileLarge.load(user.photoUrl) {
@@ -112,12 +116,30 @@ class ProfileActivity : AppCompatActivity() {
             }
             btnGoogleSignIn.visibility = View.GONE
             btnSignOut.visibility = View.VISIBLE
+            tvLoginWarning.visibility = View.GONE
+
+            // Fetch and show Tier
+            FirebaseManager.getUserRank("Global") { _, score ->
+                val tier = FirebaseManager.calculateTier(score)
+                tvUserTier.text = "Gelar: $tier"
+                
+                val tierColor = when (tier) {
+                    "Legenda" -> android.graphics.Color.parseColor("#FFD700")
+                    "Profesional" -> android.graphics.Color.parseColor("#3B82F6")
+                    "Semi-Pro" -> android.graphics.Color.parseColor("#22C55E")
+                    else -> android.graphics.Color.parseColor("#94A3B8")
+                }
+                tvUserTier.setTextColor(tierColor)
+            }
         } else {
             tvUserName.text = "Guest"
             tvUserEmail.text = "Not signed in"
+            tvUserTier.text = "Gelar: Amatir"
+            tvUserTier.setTextColor(android.graphics.Color.parseColor("#94A3B8"))
             imgProfileLarge.setImageResource(R.drawable.ic_launcher_foreground)
             btnGoogleSignIn.visibility = View.VISIBLE
             btnSignOut.visibility = View.GONE
+            tvLoginWarning.visibility = View.VISIBLE
         }
     }
 

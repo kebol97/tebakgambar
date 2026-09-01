@@ -9,12 +9,22 @@ data class UserScore(
     val userName: String = "Player",
     val score: Int = 0,
     val category: String = "Global",
+    val tier: String = "Amatir",
     val timestamp: Long = System.currentTimeMillis()
 )
 
 object FirebaseManager {
     private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
     private val db: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
+
+    fun calculateTier(score: Int): String {
+        return when {
+            score >= 3501 -> "Legenda"
+            score >= 1501 -> "Profesional"
+            score >= 501 -> "Semi-Pro"
+            else -> "Amatir"
+        }
+    }
 
     fun loginAnonymous(onSuccess: () -> Unit) {
         if (auth.currentUser == null) {
@@ -29,37 +39,38 @@ object FirebaseManager {
     fun uploadScore(score: Int, category: String) {
         val user = auth.currentUser ?: return
         val userId = user.uid
-        val userName = if (user.displayName.isNullOrEmpty()) "Player" else user.displayName!!
         
-        // 1. Update Category Score
-        updateIfHigher("scores_$category", userId, userName, score, category)
+        var userName = user.displayName
+        if (userName.isNullOrEmpty()) {
+            val shortId = if (userId.length > 4) userId.takeLast(4).uppercase() else userId
+            userName = "Player #$shortId"
+        }
         
-        // 2. Update Global Score (Total/Highest from any category)
-        updateIfHigher("scores_Global", userId, userName, score, "Global")
+        // 1. Update Category Score (Accumulated)
+        updateScoreAccumulated("scores_$category", userId, userName, score, category)
+        
+        // 2. Update Global Score (Accumulated)
+        updateScoreAccumulated("scores_Global", userId, userName, score, "Global")
     }
 
-    private fun updateIfHigher(collection: String, userId: String, userName: String, score: Int, category: String) {
+    private fun updateScoreAccumulated(collection: String, userId: String, userName: String, sessionScore: Int, category: String) {
         db.collection(collection).document(userId).get().addOnSuccessListener { document ->
             val existingScore = document.toObject(UserScore::class.java)?.score ?: 0
-            if (score > existingScore) {
-                val userScore = UserScore(userId, userName, score, category)
-                db.collection(collection).document(userId).set(userScore)
-                    .addOnSuccessListener {
-                        android.util.Log.d("FirebaseManager", "Score updated in $collection for $userName")
-                    }
-                    .addOnFailureListener {
-                        android.util.Log.e("FirebaseManager", "Failed to update score in $collection: ${it.message}")
-                    }
-            } else {
-                android.util.Log.d("FirebaseManager", "Score not higher. Current: $score, Existing: $existingScore")
-            }
-        }.addOnFailureListener {
-            // If document doesn't exist, this might still trigger success with document.exists() == false
-            // But if it's a real failure (like permissions):
-            android.util.Log.e("FirebaseManager", "Error checking existing score in $collection: ${it.message}")
+            val totalScore = existingScore + sessionScore
+            val newTier = calculateTier(totalScore)
             
-            // Try to set anyway if it's just a "not found" type of error (though get() usually succeeds for missing docs)
-            val userScore = UserScore(userId, userName, score, category)
+            val userScore = UserScore(userId, userName, totalScore, category, newTier)
+            db.collection(collection).document(userId).set(userScore)
+                .addOnSuccessListener {
+                    android.util.Log.d("FirebaseManager", "Score accumulated in $collection for $userName. New total: $totalScore")
+                }
+                .addOnFailureListener {
+                    android.util.Log.e("FirebaseManager", "Failed to accumulate score in $collection: ${it.message}")
+                }
+        }.addOnFailureListener {
+            // Jika dokumen tidak ada, set skor pertama kali
+            val newTier = calculateTier(sessionScore)
+            val userScore = UserScore(userId, userName, sessionScore, category, newTier)
             db.collection(collection).document(userId).set(userScore)
         }
     }
