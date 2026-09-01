@@ -56,9 +56,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupMenuClickListeners() {
         binding.btnCategory.setOnClickListener {
-            val intent = Intent(this, CategoryActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            showDisclaimerDialog {
+                val intent = Intent(this, CategoryActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            }
         }
 
         binding.btnLeaderboard.setOnClickListener {
@@ -72,6 +74,31 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
+    }
+
+    private fun showDisclaimerDialog(onAccepted: () -> Unit) {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_disclaimer, null)
+
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(true)
+            .create()
+
+        dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+        val btnAgree = dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnDisclaimerAgree)
+        val btnCancel = dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnDisclaimerCancel)
+
+        btnAgree.setOnClickListener {
+            dialog.dismiss()
+            onAccepted()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun loadBannerAd() {

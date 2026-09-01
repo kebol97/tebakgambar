@@ -39,6 +39,7 @@
     <string name="hint_survey_input">Ketik jawabanmu di sini...</string>
     <string name="btn_submit_survey">TEBAK JAWABAN</string>
     <string name="loading_question">Memuat Pertanyaan...</string>
+    <string name="loading_image">Memuat Gambar Soal...</string>
     <string name="msg_correct_survey">Tepat sekali! +%1$d</string>
     <string name="msg_already_revealed">Jawaban sudah terbuka!</string>
     <string name="msg_not_in_survey">Jawaban tidak ada dalam survei!</string>
@@ -46,4 +47,10 @@
 
     <!-- Profile -->
     <string name="msg_login_warning">Login Google untuk menyimpan skor secara permanen agar tidak hilang saat aplikasi dihapus.</string>
+
+    <!-- Disclaimer -->
+    <string name="disclaimer_title">📌 Disclaimer &amp; Hak Cipta</string>
+    <string name="disclaimer_message">Aplikasi kuis ini dibuat semata-mata untuk tujuan edukasi, hiburan, dan pengenalan mengenai dunia sepak bola.\n\nSeluruh konten gambar, logo, dan materi visual yang digunakan dalam aplikasi ini adalah milik dan hak cipta dari masing-masing pemilik, klub, fotografer, atau pemegang lisensi resmi.\n\nPenggunaan aset visual dalam game ini mengacu pada prinsip Fair Use (Penggunaan Wajar) untuk keperluan edukasi dan kuis trivia non-komersial. Kami tidak mengklaim kepemilikan atas aset-aset tersebut.\n\nJika Anda adalah pemilik hak cipta resmi dan memiliki keberatan terhadap penggunaan materi tertentu, silakan hubungi kami untuk ditindaklanjuti.</string>
+    <string name="disclaimer_agree">Saya Mengerti &amp; Lanjutkan</string>
+    <string name="disclaimer_cancel">Batal</string>
 </resources>

@@ -247,6 +247,9 @@ class GameplayActivity : AppCompatActivity() {
         // Sembunyikan semua konten kuis sampai gambar siap
         setGameContentVisibility(false)
 
+        // Tampilkan loading spinner pada frame gambar
+        binding.layoutImageLoading.visibility = android.view.View.VISIBLE
+
         binding.tvQuestionProgress.text = "${currentQuestionIndex + 1}/${questionList.size}"
         binding.tvScore.text = "${getString(R.string.label_score)}: $score"
         binding.tvQuestionText.text = currentQuestion.questionText
@@ -262,13 +265,20 @@ class GameplayActivity : AppCompatActivity() {
             // Tambahkan User-Agent agar Wikimedia tidak memblokir permintaan
             addHeader("User-Agent", "KuisTebakBola/1.0 (Android; contact: support@cococue.com)")
             listener(
+                onStart = {
+                    binding.layoutImageLoading.visibility = android.view.View.VISIBLE
+                },
                 onSuccess = { _, _ ->
+                    // Sembunyikan loading spinner gambar
+                    binding.layoutImageLoading.visibility = android.view.View.GONE
+
                     // Gambar Berhasil Muncul -> Tampilkan Konten & Mulai Timer
                     setGameContentVisibility(true)
                     binding.imgQuestion.animate().alpha(1f).setDuration(400).start()
                     startTimer()
                 },
                 onError = { _, result ->
+                    binding.layoutImageLoading.visibility = android.view.View.GONE
                     android.util.Log.e("GameplayActivity", "Coil Error: ${result.throwable.message}")
                     // Jika gambar gagal dimuat, cari soal yang lain (skip)
                     Toast.makeText(this@GameplayActivity, "Gagal memuat gambar, mencari soal lain...", Toast.LENGTH_SHORT).show()

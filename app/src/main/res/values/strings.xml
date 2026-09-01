@@ -39,6 +39,7 @@
     <string name="hint_survey_input">Type your answer here...</string>
     <string name="btn_submit_survey">GUESS ANSWER</string>
     <string name="loading_question">Loading Question...</string>
+    <string name="loading_image">Loading Question Image...</string>
     <string name="msg_correct_survey">Exactly! +%1$d</string>
     <string name="msg_already_revealed">Answer already revealed!</string>
     <string name="msg_not_in_survey">Answer not in survey!</string>
@@ -46,6 +47,12 @@
 
     <!-- Profile -->
     <string name="msg_login_warning">Login with Google to save your score permanently so it won\'t be lost when the app is deleted.</string>
+
+    <!-- Disclaimer -->
+    <string name="disclaimer_title">📌 Disclaimer &amp; Copyright</string>
+    <string name="disclaimer_message">This quiz application is created solely for educational, entertainment, and sports trivia purposes regarding the world of football.\n\nAll images, logos, and visual content used in this game are the property and copyright of their respective owners, clubs, photographers, or official license holders.\n\nVisual assets are used under the Fair Use principle for educational and non-commercial trivia purposes. We do not claim ownership of any visual assets.\n\nIf you are a copyright owner and have objections to any content used, please contact us for immediate resolution.</string>
+    <string name="disclaimer_agree">I Understand &amp; Continue</string>
+    <string name="disclaimer_cancel">Cancel</string>
 
     <!-- Firebase / Google Sign-In -->
     <string name="default_web_client_id">582916037223-t3geugnn6sg0v124koq5cs08cakh2d6a.apps.googleusercontent.com</string>

@@ -114,12 +114,42 @@
                 app:strokeColor="#334155"
                 app:strokeWidth="1dp">
 
-                <ImageView
-                    android:id="@+id/imgQuestion"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
-                    android:src="@android:drawable/ic_menu_gallery" />
+                    android:layout_height="match_parent">
+
+                    <!-- Loading Indicator saat Gambar Diunduh -->
+                    <LinearLayout
+                        android:id="@+id/layoutImageLoading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ProgressBar
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:indeterminateTint="#FFD700" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/loading_image"
+                            android:textColor="#E8D5A3"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/imgQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:src="@android:drawable/ic_menu_gallery" />
+
+                </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Teks Pertanyaan -->
