@@ -19,8 +19,8 @@ object RemoteConfig {
     private const val SURVEY_URL_ID = "https://raw.githubusercontent.com/kebol97/gametbcococue/refs/heads/main/quiz.json"
     
     // URL Soal Bahasa Inggris (Default)
-    private const val QUESTIONS_URL_EN = "https://raw.githubusercontent.com/kebol97/gametbcococue/refs/heads/main/quiz.json"
-    private const val SURVEY_URL_EN = "https://raw.githubusercontent.com/kebol97/gametbcococue/refs/heads/main/survey.json"
+    private const val QUESTIONS_URL_EN = "https://raw.githubusercontent.com/kebol97/gametbcococue/refs/heads/main/quiz_en.json"
+    private const val SURVEY_URL_EN = "https://raw.githubusercontent.com/kebol97/gametbcococue/refs/heads/main/survey_en.json"
     // --------------------------------------------
 
     var adConfig: AdConfig? = null

@@ -91,7 +91,81 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Mode Si Paling Tahu -->
+        <!-- Mode Tebak Klub (Coming Soon) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardTebakKlub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#111A28"
+            app:cardCornerRadius="16dp"
+            app:strokeColor="#557A6538"
+            app:strokeWidth="1.5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="#1E293B"
+                    android:gravity="center"
+                    android:text="🛡️"
+                    android:textSize="24sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/mode_guess_club"
+                            android:textColor="#E8D5A3"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <!-- Badge Coming Soon -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#33FFD700"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp"
+                            android:text="@string/badge_coming_soon"
+                            android:textColor="#FFD700"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/desc_guess_club"
+                        android:textColor="#94A3B8"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Mode Si Paling Tahu (Survei - Coming Soon) -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardSurvey"
             android:layout_width="match_parent"
@@ -100,7 +174,7 @@
             android:focusable="true"
             app:cardBackgroundColor="#111A28"
             app:cardCornerRadius="16dp"
-            app:strokeColor="#7A6538"
+            app:strokeColor="#557A6538"
             app:strokeWidth="1.5dp">
 
             <LinearLayout
@@ -125,17 +199,38 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/mode_survey"
-                        android:textColor="#E8D5A3"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/mode_survey"
+                            android:textColor="#E8D5A3"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <!-- Badge Coming Soon -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="#33FFD700"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp"
+                            android:text="@string/badge_coming_soon"
+                            android:textColor="#FFD700"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:text="@string/desc_survey"
                         android:textColor="#94A3B8"
                         android:textSize="12sp" />

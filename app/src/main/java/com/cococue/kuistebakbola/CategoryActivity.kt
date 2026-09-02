@@ -25,6 +25,7 @@ class CategoryActivity : AppCompatActivity() {
         val headerLayout = findViewById<LinearLayout>(R.id.headerLayout)
         val adViewContainer = findViewById<FrameLayout>(R.id.adViewContainer)
         val cardTebakPemain = findViewById<MaterialCardView>(R.id.cardTebakPemain)
+        val cardTebakKlub = findViewById<MaterialCardView>(R.id.cardTebakKlub)
         val cardSurvey = findViewById<MaterialCardView>(R.id.cardSurvey)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)) { _, insets ->
@@ -40,10 +41,12 @@ class CategoryActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
+        cardTebakKlub.setOnClickListener {
+            Toast.makeText(this, getString(R.string.msg_feature_coming_soon), Toast.LENGTH_SHORT).show()
+        }
+
         cardSurvey.setOnClickListener {
-            val intent = Intent(this, SurveyActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            Toast.makeText(this, getString(R.string.msg_feature_coming_soon), Toast.LENGTH_SHORT).show()
         }
 
         loadBannerAd(adViewContainer)

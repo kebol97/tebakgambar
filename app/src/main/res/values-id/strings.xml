@@ -19,9 +19,10 @@
     <string name="msg_correct">Benar! +10</string>
     <string name="msg_wrong">Salah!</string>
     <string name="msg_quiz_finished">Kuis Selesai! Skor Akhir: %1$d</string>
-    <string name="msg_lifeline_empty">Bantuan 50:50 sudah habis!</string>
+    <string name="msg_lifeline_empty">Bantuan 50:50 hari ini sudah habis! (Maks 2x/hari)</string>
     <string name="msg_lifeline_applied">2 jawaban salah dihapus!</string>
     <string name="msg_feature_coming_soon">Fitur segera hadir!</string>
+    <string name="badge_coming_soon">SEGERA HADIR</string>
     <string name="msg_ad_not_ready">Iklan belum siap, coba lagi.</string>
     <string name="msg_data_empty">Data pertanyaan kosong</string>
     <string name="msg_load_failed">Gagal memuat: %1$s</string>
@@ -31,6 +32,8 @@
     <string name="subtitle_choose_mode">Pilih tantanganmu hari ini!</string>
     <string name="mode_guess_player">Tebak Pemain</string>
     <string name="desc_guess_player">Tebak nama pemain dari gambar</string>
+    <string name="mode_guess_club">Tebak Klub</string>
+    <string name="desc_guess_club">Tebak nama klub dari logo atau jersey</string>
     <string name="mode_survey">Paling Populer (Survei)</string>
     <string name="desc_survey">Sebutkan jawaban dengan hasil survei terbanyak</string>
 

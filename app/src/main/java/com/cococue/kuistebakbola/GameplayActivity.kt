@@ -171,9 +171,44 @@ class GameplayActivity : AppCompatActivity() {
         }.start()
     }
 
+    private fun getTodayDateString(): String {
+        val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+        return sdf.format(java.util.Date())
+    }
+
+    private fun getRemaining5050ForToday(): Int {
+        val prefs = getSharedPreferences("lifeline_prefs", MODE_PRIVATE)
+        val today = getTodayDateString()
+        val savedDate = prefs.getString("KEY_5050_DATE", "")
+
+        if (savedDate != today) {
+            // Hari baru, reset hitungan harian menjadi 0
+            prefs.edit()
+                .putString("KEY_5050_DATE", today)
+                .putInt("KEY_5050_COUNT", 0)
+                .apply()
+            return 2
+        }
+
+        val usedCount = prefs.getInt("KEY_5050_COUNT", 0)
+        return maxOf(0, 2 - usedCount)
+    }
+
+    private fun use5050ForToday() {
+        val prefs = getSharedPreferences("lifeline_prefs", MODE_PRIVATE)
+        val today = getTodayDateString()
+        val usedCount = prefs.getInt("KEY_5050_COUNT", 0)
+
+        prefs.edit()
+            .putString("KEY_5050_DATE", today)
+            .putInt("KEY_5050_COUNT", usedCount + 1)
+            .apply()
+    }
+
     private fun setupHelpButtons() {
         updateLifelineButtonText()
         binding.btnHelp5050.setOnClickListener {
+            lifelineCount = getRemaining5050ForToday()
             if (lifelineCount <= 0) {
                 Toast.makeText(this, getString(R.string.msg_lifeline_empty), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -186,7 +221,7 @@ class GameplayActivity : AppCompatActivity() {
                 binding.tvTimer.setTextColor(android.graphics.Color.WHITE)
 
                 mRewardedAd?.show(this) {
-                    lifelineCount--
+                    use5050ForToday()
                     updateLifelineButtonText()
                     apply5050()
                     mRewardedAd = null
@@ -197,14 +232,11 @@ class GameplayActivity : AppCompatActivity() {
                 loadAds() // Try to reload if it was null
             }
         }
-
-        binding.btnHelpAudience.setOnClickListener {
-            Toast.makeText(this, getString(R.string.msg_feature_coming_soon), Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun updateLifelineButtonText() {
-        binding.btnHelp5050.text = getString(R.string.btn_help_5050) + " ($lifelineCount)"
+        lifelineCount = getRemaining5050ForToday()
+        binding.btnHelp5050.text = "${getString(R.string.btn_help_5050)} ($lifelineCount/2)"
     }
 
     private fun apply5050() {
@@ -237,7 +269,6 @@ class GameplayActivity : AppCompatActivity() {
         binding.btnOptionC.visibility = visibility
         binding.btnOptionD.visibility = visibility
         binding.btnHelp5050.visibility = visibility
-        binding.btnHelpAudience.visibility = visibility
         binding.tvTimer.visibility = visibility
     }
 
